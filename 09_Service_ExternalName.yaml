@@ -1,0 +1,9 @@
+#Integración con servicios externos vía DNS.
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mi-servicio-externalname
+spec:
+  type: ExternalName              #Especificamos que es del tio ExternalName
+  externalName: ejemplo.com       

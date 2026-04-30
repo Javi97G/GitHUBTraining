@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob                     #Definimos que es un CronJob
+metadata:
+  name: test-cronjob
+spec:
+  schedule: "*/1 * * * *"         #Definimos cada cuanto queremos ejecutar el CronJob. (Ejecuta la tarea cada minuto en este ejemplo)
+  successfulJobsHistoryLimit: 3   #Mantiene un historial de 3 ejecuciones exitosas
+  failedJobsHistoryLimit: 1       #Mantiene un historial de 1 ejecución fallida
+  concurrencyPolicy: Forbid       #No permite que dos Jobs se ejecuten en paralelo
+  jobTemplate:
+    spec:
+      completions: 1
+      backoffLimit: 2
+      template:
+        spec:
+          containers:
+          - name: test
+            image: busybox
+            command: ["/bin/sleep"]
+            args: ["3"]
+          restartPolicy: Never

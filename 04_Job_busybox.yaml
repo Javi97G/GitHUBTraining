@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job                           #Definimos que es un Job
+metadata:
+  name: test-job
+spec:
+  completions: 5                    #Número de ejecuciones deseadas
+  backoffLimit: 3                   #Número máximo de reintentos en caso de fallo
+  template:
+    spec:
+      containers:
+      - name: test
+        image: busybox
+        command: ["/bin/sleep"]   #Comando que ejecuta dentro de nuestro BusyBox
+        args: ["3"]               #Argumento para nuestro comando. (Simula una tarea que dura 3 segundos)
+      restartPolicy: Never

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment                    #Especificamos que es un objeto de tipo Deployment
+metadata:
+  name: nginx-deployment            #Especificamos el nombre del Deployment
+  labels:    
+    app: nginx                      #Añadimos las etiquetas app:nginx al Deployment
+spec:
+  replicas: 3                       #Especificamos el numero de replicas de PODs que queremos en nuestro cluster k8s 
+  selector:
+    matchLabels:
+      app: nginx                    #Todos los PODs que contengan las etiquetas app:nginx formaran parte de este Deployment
+  template:
+    metadata:
+      labels:
+        app: nginx                  #Añadimos las etiquetas app:nginx a los PODs de nuestro Deployment
+    spec:
+      containers:
+      - name: nginx                 #Damos nombre al container de nuestro POD
+        image: nginx                #Especificamos la imagen que debe utilizar para nuestro container, por defecto la extrae de Docker Hub
+        ports:
+        - containerPort: 80         #Expone al exterior el Container+POD en el puerto 80 (HTTP)
+        resources:
+          requests:
+            memory: "64Mi"          #Valor de memoria minimo garantizado
+            cpu: "250m"             #Valor de CPU minimo garantizado
+          limits:
+            memory: "128Mi"         #Valor de memoria maximo. 1mi = 1Mb
+            cpu: "500m"             #Valor de CPU maximo. 1000m = 1CPU

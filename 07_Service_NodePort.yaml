@@ -1,0 +1,14 @@
+#Servicio para exponer el Cluster desde fuera utilizando la IP del nodo y el puerto especificado en nodePort
+
+apiVersion: v1
+kind: Service                 #Definimos que es un Servicio
+metadata:
+  name: mi-servicio-nodeport  #Le asignamos una etiqueta a nuestro servicio
+spec:
+  selector:
+    app: mi-app               #Todos los PODs con la etiqueta "app:mi-app" responderan a los request de nuestro servicio.
+  ports:
+    - port: 8080              #Puerto que expone internamente el servicio.
+      targetPort: 80          #Puerto que exponen los PODs.
+      nodePort: 30080         #Puerto que expone externamente el nodo.
+  type: NodePort              #Definimos que es un tipo de servicio "Node Port"

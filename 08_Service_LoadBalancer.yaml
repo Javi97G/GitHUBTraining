@@ -1,0 +1,13 @@
+#Exposición pública de aplicaciones en cloud
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mi-servicio-loadbalancer
+spec:
+  selector:
+    app: mi-app
+  ports:
+    - port: 80
+      targetPort: 80
+  type: LoadBalancer        #Especificamos que es del tipo LoadBalancer

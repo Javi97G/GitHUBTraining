@@ -1,0 +1,13 @@
+#Servicio para exponer nuestros pods internamente entre microservicios
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mi-servicio-clusterip
+spec:
+  selector:
+    app: mi-app
+  ports:
+    - port: 8080
+      targetPort: 80
+  type: ClusterIP
