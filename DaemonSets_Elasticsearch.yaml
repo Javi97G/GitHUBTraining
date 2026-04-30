@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: DaemonSet                             #Especificamos que es un objeto de tipo DaemonSet
+metadata:
+  name: fluentd-elasticsearch               #Especificamos el nombre del DaemonSet
+  labels:
+    k8s-app: fluentd-logging                #Añadimos las etiquetas "k8s-app:fluentd-logging" al DaemonSet
+spec:
+  selector:
+    matchLabels:
+      name: fluentd-elasticsearch           #Especificamos que todos los pods con la etiqueta "name:fluentd-elasticsearch" formen parte del DaemonSet
+  template:
+    metadata:
+      labels:
+        name: fluentd-elasticsearch         #Especificamos que todos los pods del DaemonSet contengan la etiqueta "name:fluentd-elasticsearch"
+    spec:
+      containers:
+      - name: fluentd-elasticsearch          #Especificamos el nombre del container "fluentd-elasticsearch"
+        image: quay.io/fluentd_elasticsearch/fluentd:v2.5.2   #Especificamos la URL donde se encuentra la imagen de nuestro container
+        resources:
+          limits:
+            memory: 200Mi                    #Valor de memoria maximo
+          requests:
+            cpu: 100m                        #Valor de CPU minimo garantizado
+            memory: 200Mi                    #Valor de memoria minimo garantizado
